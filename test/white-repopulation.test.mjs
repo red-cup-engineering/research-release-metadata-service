@@ -42,7 +42,7 @@ test("CITATION.cff keeps every top-level field of the hand-written file, with th
   assert.equal(now.type, old.type);
   assert.deepEqual(now.institution, old.institution);
   assert.equal(now.year, old.year);
-  for (const sentence of ["Research preprint candidate", "not peer reviewed", "An anonymous contributor acknowledged for research direction", "No DOI"]) {
+  for (const sentence of ["Research preprint candidate", "not peer reviewed", "anonymous contributor acknowledged for research direction", "No DOI"]) {
     assert.match(now.notes.toLowerCase(), new RegExp(sentence.toLowerCase(), "u"));
   }
 });
