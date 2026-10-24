@@ -1,0 +1,59 @@
+{
+  "name": "@red-cup-engineering/research-release-metadata-service",
+  "version": "0.1.0",
+  "description": "One paper.yaml in, every research-release metadata file out: CITATION.cff 1.2.0, Zenodo .zenodo.json, codemeta 3.0 JSON-LD and schema.org ScholarlyArticle JSON-LD, byte-reproducibly, plus a drift check across the existing files. Models AI-collaborator disclosure faithfully: an AI system may be credited but never holds accountability.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/red-cup-engineering/research-release-metadata-service.git"
+  },
+  "type": "module",
+  "private": false,
+  "license": "MIT",
+  "exports": {
+    ".": "./scripts/paper.mjs",
+    "./paper": "./scripts/paper.mjs",
+    "./paper.schema.json": "./schemas/paper.schema.json",
+    "./project-citation-cff": "./scripts/project-citation-cff.mjs",
+    "./project-zenodo-metadata": "./scripts/project-zenodo-metadata.mjs",
+    "./project-codemeta": "./scripts/project-codemeta.mjs",
+    "./project-scholarly-article-json-ld": "./scripts/project-scholarly-article-json-ld.mjs",
+    "./check-release-metadata-consistency": "./scripts/check-release-metadata-consistency.mjs"
+  },
+  "bin": {
+    "project-citation-cff": "scripts/project-citation-cff.mjs",
+    "project-zenodo-metadata": "scripts/project-zenodo-metadata.mjs",
+    "project-codemeta": "scripts/project-codemeta.mjs",
+    "project-scholarly-article-json-ld": "scripts/project-scholarly-article-json-ld.mjs",
+    "check-release-metadata-consistency": "scripts/check-release-metadata-consistency.mjs"
+  },
+  "files": [
+    "scripts",
+    "schemas",
+    "data",
+    "README.md",
+    "LICENSE",
+    "package.json"
+  ],
+  "dependencies": {
+    "@red-cup-engineering/javascript-node-services-section": "0.4.1",
+    "@red-cup-engineering/json-schema-services-section": "0.5.1",
+    "@red-cup-engineering/research-document-metadata-admission-service": "0.1.0",
+    "@red-cup-engineering/yaml-frontmatter-codec-service": "0.1.8"
+  },
+  "devDependencies": {
+    "ajv": "8.17.1",
+    "ajv-formats": "3.0.1"
+  },
+  "scripts": {
+    "check": "for file in scripts/*.mjs test/*.mjs; do node --check \"$file\" || exit; done",
+    "test": "node --test test/*.test.mjs",
+    "pack:dry-run": "npm pack --dry-run --ignore-scripts"
+  },
+  "engines": {
+    "node": ">=24.2.0"
+  },
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/561-group/.github/blob/main/TIPS.md"
+  }
+}

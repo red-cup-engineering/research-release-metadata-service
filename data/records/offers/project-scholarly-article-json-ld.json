@@ -1,0 +1,151 @@
+{
+  "name": "Project ScholarlyArticle JSON-LD",
+  "gateway": "research-release-metadata",
+  "gatewayPackageName": "@red-cup-engineering/research-release-metadata-service",
+  "section": "lib/emsenn/services/561-group/services/engineering-services-section/services/computer-engineering-services-section/services/computer-data-engineering-services-section/services/computer-content-engineering-services-section/services/computer-documents-engineering-services-section/services/research-release-metadata-service",
+  "operation": "project-scholarly-article-json-ld",
+  "origin": "https://market.561.group",
+  "route": "/v1/project-scholarly-article-json-ld",
+  "method": "POST",
+  "price": "$0.005",
+  "category": "data",
+  "output": {
+    "schema": {
+      "type": "object",
+      "required": [
+        "text",
+        "value"
+      ],
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "value": {
+          "type": "object"
+        }
+      }
+    },
+    "example": {
+      "text": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"ScholarlyArticle\",\n  \"headline\": \"An Example Paper\",\n  \"name\": \"An Example Paper\",\n  \"description\": \"A short abstract describing the example paper.\",\n  \"abstract\": \"A short abstract describing the example paper.\",\n  \"version\": \"1.0.0\",\n  \"datePublished\": \"2026-01-15\",\n  \"creativeWorkStatus\": \"Published\",\n  \"genre\": \"preprint\",\n  \"author\": [\n    {\n      \"@type\": \"Person\",\n      \"givenName\": \"Ada\",\n      \"familyName\": \"Lovelace\",\n      \"name\": \"Ada Lovelace\",\n      \"affiliation\": {\n        \"@type\": \"Organization\",\n        \"name\": \"Analytical Engine Society\"\n      },\n      \"jobTitle\": \"accountable-human-author\"\n    }\n  ],\n  \"license\": [\n    \"https://spdx.org/licenses/CC-BY-4.0\"\n  ],\n  \"isAccessibleForFree\": true,\n  \"keywords\": [\n    \"example\",\n    \"metadata\"\n  ],\n  \"additionalProperty\": [\n    {\n      \"@type\": \"PropertyValue\",\n      \"name\": \"peer-reviewed\",\n      \"value\": false\n    }\n  ]\n}\n",
+      "value": {
+        "@context": "https://schema.org",
+        "@type": "ScholarlyArticle",
+        "headline": "An Example Paper",
+        "name": "An Example Paper",
+        "description": "A short abstract describing the example paper.",
+        "abstract": "A short abstract describing the example paper.",
+        "version": "1.0.0",
+        "datePublished": "2026-01-15",
+        "creativeWorkStatus": "Published",
+        "genre": "preprint",
+        "author": [
+          {
+            "@type": "Person",
+            "givenName": "Ada",
+            "familyName": "Lovelace",
+            "name": "Ada Lovelace",
+            "affiliation": {
+              "@type": "Organization",
+              "name": "Analytical Engine Society"
+            },
+            "jobTitle": "accountable-human-author"
+          }
+        ],
+        "license": [
+          "https://spdx.org/licenses/CC-BY-4.0"
+        ],
+        "isAccessibleForFree": true,
+        "keywords": [
+          "example",
+          "metadata"
+        ],
+        "additionalProperty": [
+          {
+            "@type": "PropertyValue",
+            "name": "peer-reviewed",
+            "value": false
+          }
+        ]
+      }
+    }
+  },
+  "framings": [
+    {
+      "key": "default",
+      "title": "Project ScholarlyArticle JSON-LD",
+      "description": "Project a paper.yaml into schema.org ScholarlyArticle JSON-LD: author, license, isBasedOn, citation and citation-count hooks, artifact hashes, and creditText disclosing any AI collaborator. Deterministic bytes.",
+      "tags": [
+        "research",
+        "citation",
+        "metadata",
+        "open-science",
+        "schema-org"
+      ],
+      "serviceName": "project-scholarly-article"
+    }
+  ],
+  "ledgerAccount": "Income:Sales:X402:Research-release-metadata",
+  "markets": [
+    "x402-bazaar",
+    "402index",
+    "house-capability-market",
+    "house-seller-catalog"
+  ],
+  "seller": {
+    "enterprise": "engineering",
+    "entity": "561-group-llc",
+    "record": {
+      "path": "lib/emsenn/services/561-group/services/engineering-services-section/lib/agency/enterprises/engineering.json",
+      "sha256": "6af4ed9d1e4612b0383267e7ffe0ad028c52164ee3c5136110d434384a29c39f"
+    }
+  },
+  "compute": {
+    "package": "@red-cup-engineering/research-release-metadata-service",
+    "subpath": "./project-scholarly-article-json-ld",
+    "export": "projectScholarlyArticleJsonLd",
+    "args": [
+      "body"
+    ]
+  },
+  "runtime": "edge",
+  "saleStatus": "held",
+  "bodyExample": {
+    "paper": {
+      "id": "example-paper",
+      "title": "An Example Paper",
+      "version": "1.0.0",
+      "status": "released",
+      "date-released": "2026-01-15",
+      "abstract": "A short abstract describing the example paper.",
+      "keywords": [
+        "example",
+        "metadata"
+      ],
+      "license": {
+        "text": "CC-BY-4.0"
+      },
+      "authors": [
+        {
+          "given": "Ada",
+          "family": "Lovelace",
+          "affiliation": "Analytical Engine Society",
+          "role": "accountable-human-author",
+          "ai": false
+        }
+      ]
+    }
+  },
+  "bodySchema": {
+    "type": "object",
+    "properties": {
+      "paper": {
+        "type": "object",
+        "description": "paper.yaml decoded as a JSON object (schemas/paper.schema.json)."
+      },
+      "paperYaml": {
+        "type": "string",
+        "description": "paper.yaml source text. Send exactly one of paper or paperYaml."
+      }
+    }
+  }
+}

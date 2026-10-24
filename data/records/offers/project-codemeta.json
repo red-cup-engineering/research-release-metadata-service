@@ -1,0 +1,141 @@
+{
+  "name": "Project codemeta",
+  "gateway": "research-release-metadata",
+  "gatewayPackageName": "@red-cup-engineering/research-release-metadata-service",
+  "section": "lib/emsenn/services/561-group/services/engineering-services-section/services/computer-engineering-services-section/services/computer-data-engineering-services-section/services/computer-content-engineering-services-section/services/computer-documents-engineering-services-section/services/research-release-metadata-service",
+  "operation": "project-codemeta",
+  "origin": "https://market.561.group",
+  "route": "/v1/project-codemeta",
+  "method": "POST",
+  "price": "$0.005",
+  "category": "data",
+  "output": {
+    "schema": {
+      "type": "object",
+      "required": [
+        "text",
+        "value"
+      ],
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "value": {
+          "type": "object"
+        }
+      }
+    },
+    "example": {
+      "text": "{\n  \"@context\": \"https://w3id.org/codemeta/3.0\",\n  \"@type\": \"SoftwareSourceCode\",\n  \"name\": \"An Example Paper\",\n  \"description\": \"A short abstract describing the example paper.\",\n  \"version\": \"1.0.0\",\n  \"datePublished\": \"2026-01-15\",\n  \"license\": [\n    \"https://spdx.org/licenses/CC-BY-4.0\"\n  ],\n  \"author\": [\n    {\n      \"@type\": \"Person\",\n      \"givenName\": \"Ada\",\n      \"familyName\": \"Lovelace\",\n      \"name\": \"Ada Lovelace\",\n      \"affiliation\": {\n        \"@type\": \"Organization\",\n        \"name\": \"Analytical Engine Society\"\n      },\n      \"jobTitle\": \"accountable-human-author\"\n    }\n  ],\n  \"keywords\": [\n    \"example\",\n    \"metadata\"\n  ],\n  \"developmentStatus\": \"https://www.repostatus.org/#active\",\n  \"isAccessibleForFree\": true\n}\n",
+      "value": {
+        "@context": "https://w3id.org/codemeta/3.0",
+        "@type": "SoftwareSourceCode",
+        "name": "An Example Paper",
+        "description": "A short abstract describing the example paper.",
+        "version": "1.0.0",
+        "datePublished": "2026-01-15",
+        "license": [
+          "https://spdx.org/licenses/CC-BY-4.0"
+        ],
+        "author": [
+          {
+            "@type": "Person",
+            "givenName": "Ada",
+            "familyName": "Lovelace",
+            "name": "Ada Lovelace",
+            "affiliation": {
+              "@type": "Organization",
+              "name": "Analytical Engine Society"
+            },
+            "jobTitle": "accountable-human-author"
+          }
+        ],
+        "keywords": [
+          "example",
+          "metadata"
+        ],
+        "developmentStatus": "https://www.repostatus.org/#active",
+        "isAccessibleForFree": true
+      }
+    }
+  },
+  "framings": [
+    {
+      "key": "default",
+      "title": "Project codemeta",
+      "description": "Project a paper.yaml into codemeta 3.0 JSON-LD for the release repository: authors, disclosed non-person AI contributors, SPDX license URLs, funding, repostatus, CARE and evidence-limit properties. Deterministic bytes.",
+      "tags": [
+        "research",
+        "citation",
+        "metadata",
+        "open-science",
+        "codemeta"
+      ],
+      "serviceName": "project-codemeta"
+    }
+  ],
+  "ledgerAccount": "Income:Sales:X402:Research-release-metadata",
+  "markets": [
+    "x402-bazaar",
+    "402index",
+    "house-capability-market",
+    "house-seller-catalog"
+  ],
+  "seller": {
+    "enterprise": "engineering",
+    "entity": "561-group-llc",
+    "record": {
+      "path": "lib/emsenn/services/561-group/services/engineering-services-section/lib/agency/enterprises/engineering.json",
+      "sha256": "6af4ed9d1e4612b0383267e7ffe0ad028c52164ee3c5136110d434384a29c39f"
+    }
+  },
+  "compute": {
+    "package": "@red-cup-engineering/research-release-metadata-service",
+    "subpath": "./project-codemeta",
+    "export": "projectCodemeta",
+    "args": [
+      "body"
+    ]
+  },
+  "runtime": "edge",
+  "saleStatus": "held",
+  "bodyExample": {
+    "paper": {
+      "id": "example-paper",
+      "title": "An Example Paper",
+      "version": "1.0.0",
+      "status": "released",
+      "date-released": "2026-01-15",
+      "abstract": "A short abstract describing the example paper.",
+      "keywords": [
+        "example",
+        "metadata"
+      ],
+      "license": {
+        "text": "CC-BY-4.0"
+      },
+      "authors": [
+        {
+          "given": "Ada",
+          "family": "Lovelace",
+          "affiliation": "Analytical Engine Society",
+          "role": "accountable-human-author",
+          "ai": false
+        }
+      ]
+    }
+  },
+  "bodySchema": {
+    "type": "object",
+    "properties": {
+      "paper": {
+        "type": "object",
+        "description": "paper.yaml decoded as a JSON object (schemas/paper.schema.json)."
+      },
+      "paperYaml": {
+        "type": "string",
+        "description": "paper.yaml source text. Send exactly one of paper or paperYaml."
+      }
+    }
+  }
+}

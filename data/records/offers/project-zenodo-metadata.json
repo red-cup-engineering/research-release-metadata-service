@@ -1,0 +1,132 @@
+{
+  "name": "Project Zenodo metadata",
+  "gateway": "research-release-metadata",
+  "gatewayPackageName": "@red-cup-engineering/research-release-metadata-service",
+  "section": "lib/emsenn/services/561-group/services/engineering-services-section/services/computer-engineering-services-section/services/computer-data-engineering-services-section/services/computer-content-engineering-services-section/services/computer-documents-engineering-services-section/services/research-release-metadata-service",
+  "operation": "project-zenodo-metadata",
+  "origin": "https://market.561.group",
+  "route": "/v1/project-zenodo-metadata",
+  "method": "POST",
+  "price": "$0.005",
+  "category": "data",
+  "output": {
+    "schema": {
+      "type": "object",
+      "required": [
+        "text",
+        "value"
+      ],
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "value": {
+          "type": "object"
+        }
+      }
+    },
+    "example": {
+      "text": "{\n  \"upload_type\": \"publication\",\n  \"publication_type\": \"preprint\",\n  \"title\": \"An Example Paper\",\n  \"publication_date\": \"2026-01-15\",\n  \"description\": \"<p>A short abstract describing the example paper.</p>\",\n  \"creators\": [\n    {\n      \"name\": \"Lovelace, Ada\",\n      \"affiliation\": \"Analytical Engine Society\"\n    }\n  ],\n  \"keywords\": [\n    \"example\",\n    \"metadata\"\n  ],\n  \"license\": \"cc-by-4.0\",\n  \"access_right\": \"open\",\n  \"version\": \"1.0.0\",\n  \"notes\": \"<p>Not peer reviewed.</p>\"\n}\n",
+      "value": {
+        "upload_type": "publication",
+        "publication_type": "preprint",
+        "title": "An Example Paper",
+        "publication_date": "2026-01-15",
+        "description": "<p>A short abstract describing the example paper.</p>",
+        "creators": [
+          {
+            "name": "Lovelace, Ada",
+            "affiliation": "Analytical Engine Society"
+          }
+        ],
+        "keywords": [
+          "example",
+          "metadata"
+        ],
+        "license": "cc-by-4.0",
+        "access_right": "open",
+        "version": "1.0.0",
+        "notes": "<p>Not peer reviewed.</p>"
+      }
+    }
+  },
+  "framings": [
+    {
+      "key": "default",
+      "title": "Project Zenodo metadata",
+      "description": "Project a paper.yaml into .zenodo.json deposit metadata: human creators, contributors with Zenodo types, related identifiers, license id, upload and publication type; an AI collaborator is a disclosed contributor, never a creator. Deterministic bytes.",
+      "tags": [
+        "research",
+        "citation",
+        "metadata",
+        "open-science",
+        "zenodo"
+      ],
+      "serviceName": "project-zenodo-metadata"
+    }
+  ],
+  "ledgerAccount": "Income:Sales:X402:Research-release-metadata",
+  "markets": [
+    "x402-bazaar",
+    "402index",
+    "house-capability-market",
+    "house-seller-catalog"
+  ],
+  "seller": {
+    "enterprise": "engineering",
+    "entity": "561-group-llc",
+    "record": {
+      "path": "lib/emsenn/services/561-group/services/engineering-services-section/lib/agency/enterprises/engineering.json",
+      "sha256": "6af4ed9d1e4612b0383267e7ffe0ad028c52164ee3c5136110d434384a29c39f"
+    }
+  },
+  "compute": {
+    "package": "@red-cup-engineering/research-release-metadata-service",
+    "subpath": "./project-zenodo-metadata",
+    "export": "projectZenodoMetadata",
+    "args": [
+      "body"
+    ]
+  },
+  "runtime": "edge",
+  "saleStatus": "held",
+  "bodyExample": {
+    "paper": {
+      "id": "example-paper",
+      "title": "An Example Paper",
+      "version": "1.0.0",
+      "status": "released",
+      "date-released": "2026-01-15",
+      "abstract": "A short abstract describing the example paper.",
+      "keywords": [
+        "example",
+        "metadata"
+      ],
+      "license": {
+        "text": "CC-BY-4.0"
+      },
+      "authors": [
+        {
+          "given": "Ada",
+          "family": "Lovelace",
+          "affiliation": "Analytical Engine Society",
+          "role": "accountable-human-author",
+          "ai": false
+        }
+      ]
+    }
+  },
+  "bodySchema": {
+    "type": "object",
+    "properties": {
+      "paper": {
+        "type": "object",
+        "description": "paper.yaml decoded as a JSON object (schemas/paper.schema.json)."
+      },
+      "paperYaml": {
+        "type": "string",
+        "description": "paper.yaml source text. Send exactly one of paper or paperYaml."
+      }
+    }
+  }
+}

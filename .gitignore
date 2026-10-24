@@ -1,0 +1,7 @@
+node_modules/
+install.log
+install.status
+test.out
+gen.out
+test2.out
+examples.out

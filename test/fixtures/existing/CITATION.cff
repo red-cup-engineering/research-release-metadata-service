@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "Please cite the versioned research preprint after its public release; no DOI is assigned."
+title: "White Repopulation: Reproduction without Preservation"
+authors:
+  - family-names: "Sennhauser"
+    given-names: "Morgan"
+  - name: "Codex 6.1 (disclosed AI research collaborator)"
+abstract: >-
+  Historical sociology of selective reproductive ideals, captive birth,
+  inherited property, transatlantic movement, and settler institutional continuity.
+keywords:
+  - settler colonialism
+  - social reproduction
+  - historical sociology
+  - reproductive futurity
+version: "0.1.0"
+license: "CC-BY-4.0"
+preferred-citation:
+  type: report
+  authors:
+    - family-names: "Sennhauser"
+      given-names: "Morgan"
+    - name: "Codex 6.1 (disclosed AI research collaborator)"
+  title: "White Repopulation: Reproduction without Preservation"
+  institution:
+    name: "Lenticule Science"
+  year: 2026
+  notes: "Research preprint candidate; not peer reviewed. An anonymous contributor acknowledged for research direction. No public DOI yet."

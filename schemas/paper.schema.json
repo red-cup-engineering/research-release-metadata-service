@@ -1,0 +1,193 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://561.group/schema/research-release-metadata/paper.schema.json",
+  "title": "paper.yaml",
+  "description": "The one source of truth for a research release. CITATION.cff, .zenodo.json, codemeta.json and the schema.org ScholarlyArticle JSON-LD are projections of this record; none is authored a second time. An AI system may be credited (ai: true) but never holds accountability: at least one human author (ai: false) must hold the accountable role.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "title", "version", "status", "abstract", "keywords", "license", "authors"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)*$",
+      "description": "Lowercase dotted-or-hyphenated identifier of the paper; also the research-document-metadata-admission-service id."
+    },
+    "title": { "type": "string", "minLength": 1 },
+    "subtitle": { "type": "string", "minLength": 1 },
+    "version": { "type": "string", "minLength": 1, "description": "The release version, quoted in YAML so 1.0 stays a string." },
+    "date-released": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$", "description": "ISO calendar date of the release. Absent until the release exists; no generated file invents one." },
+    "year": { "type": "integer", "minimum": 1, "description": "Citation year while date-released is absent; ignored when date-released is present." },
+    "status": { "enum": ["draft", "release-candidate", "released", "withdrawn"] },
+    "publication-type": { "enum": ["preprint", "article", "report", "book", "thesis", "conferencepaper", "other"], "default": "preprint" },
+    "peer-reviewed": { "type": "boolean", "default": false },
+    "abstract": { "type": "string", "minLength": 1 },
+    "keywords": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "subjects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["term"],
+        "properties": {
+          "term": { "type": "string", "minLength": 1 },
+          "identifier": { "type": "string", "minLength": 1 },
+          "scheme": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "language": { "type": "string", "pattern": "^[a-z]{2,3}(?:-[A-Za-z0-9]+)*$", "description": "BCP 47 language tag of the paper's text." },
+    "license": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["text"],
+      "properties": {
+        "text": { "type": "string", "minLength": 1, "description": "SPDX identifier licensing the authored text." },
+        "code": { "type": "string", "minLength": 1, "description": "SPDX identifier licensing code in the release." },
+        "data": { "type": "string", "minLength": 1, "description": "SPDX identifier licensing data in the release." },
+        "scope": { "type": "string", "minLength": 1, "description": "What the licences do not cover, e.g. third-party sources." }
+      }
+    },
+    "access-right": { "enum": ["open", "embargoed", "restricted", "closed"], "default": "open" },
+    "publisher": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name"],
+      "properties": { "name": { "type": "string", "minLength": 1 }, "url": { "type": "string", "format": "uri" } }
+    },
+    "authors": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/author" } },
+    "contributors": { "type": "array", "items": { "$ref": "#/$defs/contributor" } },
+    "acknowledgements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name"],
+        "properties": { "name": { "type": "string", "minLength": 1 }, "role": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "funding": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["funder"],
+        "properties": {
+          "funder": { "type": "string", "minLength": 1 },
+          "award": { "type": "string", "minLength": 1 },
+          "url": { "type": "string", "format": "uri" },
+          "zenodo-grant-id": { "type": "string", "pattern": "^[0-9.]+/[0-9]+::.+$", "description": "A Zenodo grant id (funder DOI :: award number); the only form Zenodo's grants field accepts." }
+        }
+      }
+    },
+    "repository-code": { "type": "string", "format": "uri" },
+    "url": { "type": "string", "format": "uri", "description": "Canonical public landing page, when one exists." },
+    "doi": { "type": "string", "pattern": "^10\\.[0-9]{4,9}/\\S+$", "description": "Bare DOI, only once one is assigned." },
+    "related-identifiers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["identifier", "relation"],
+        "properties": {
+          "identifier": { "type": "string", "minLength": 1 },
+          "relation": {
+            "enum": ["isCitedBy", "cites", "isSupplementTo", "isSupplementedBy", "isContinuedBy", "continues", "isDescribedBy", "describes", "hasMetadata", "isMetadataFor", "isNewVersionOf", "isPreviousVersionOf", "isPartOf", "hasPart", "isReferencedBy", "references", "isDocumentedBy", "documents", "isCompiledBy", "compiles", "isVariantFormOf", "isOriginalFormOf", "isIdenticalTo", "isAlternateIdentifier", "isReviewedBy", "reviews", "isDerivedFrom", "isSourceOf", "requires", "isRequiredBy", "isObsoletedBy", "obsoletes"]
+          },
+          "scheme": { "enum": ["doi", "url", "arxiv", "handle", "purl", "urn", "isbn", "issn", "pmid", "ark", "ascl", "bibcode", "ean13", "eissn", "istc", "lsid", "orcid", "pmcid", "sra", "swh", "w3id"] },
+          "resource-type": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "description": "Files released with the paper, content-addressed.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "sha256"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+          "bytes": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "limitations": { "type": "array", "items": { "type": "string", "minLength": 1 }, "description": "Explicit evidence limits, carried into the deposit description." },
+    "message": { "type": "string", "minLength": 1, "description": "The citation request text for CITATION.cff." },
+    "notes": { "type": "string", "minLength": 1, "description": "Free-text citation notes." },
+    "citation-count": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "source", "observed-on"],
+      "properties": {
+        "value": { "type": "integer", "minimum": 0 },
+        "source": { "type": "string", "minLength": 1 },
+        "observed-on": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" }
+      },
+      "description": "A dated citation-count observation, carried to the ScholarlyArticle JSON-LD. Never fetched or invented."
+    },
+    "care": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "description": "CARE Principles for Indigenous Data Governance statements. Restating what governs the work; not a licence and not a verification.",
+      "properties": {
+        "authority-to-control": { "type": "string", "minLength": 1 },
+        "responsibility": { "type": "string", "minLength": 1 },
+        "ethics": { "type": "string", "minLength": 1 },
+        "collective-benefit": { "type": "string", "minLength": 1 }
+      }
+    },
+    "ai-disclosure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["statement"],
+      "properties": { "statement": { "type": "string", "minLength": 1 } },
+      "description": "Required whenever any author or contributor is an AI system."
+    }
+  },
+  "$defs": {
+    "orcid": { "type": "string", "pattern": "^(?:https://orcid\\.org/)?[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$" },
+    "author": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ai", "role"],
+      "properties": {
+        "ai": { "type": "boolean", "description": "True for an AI system. An AI system is credited, never accountable." },
+        "given": { "type": "string", "minLength": 1 },
+        "family": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1, "description": "The entity name, for an AI system." },
+        "orcid": { "$ref": "#/$defs/orcid" },
+        "affiliation": { "type": "string", "minLength": 1 },
+        "email": { "type": "string", "format": "email" },
+        "role": { "type": "string", "minLength": 1, "description": "The credited role; a human accountable author's role names accountability (for example accountable-human-author)." },
+        "disclosure": { "type": "string", "minLength": 1, "description": "What the AI system did and that it carries no accountability. Required when ai is true." }
+      },
+      "if": { "properties": { "ai": { "const": true } }, "required": ["ai"] },
+      "then": { "required": ["name", "disclosure"], "not": { "anyOf": [{ "required": ["orcid"] }, { "required": ["given"] }, { "required": ["family"] }] } },
+      "else": { "required": ["given", "family"] }
+    },
+    "contributor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ai", "role"],
+      "properties": {
+        "ai": { "type": "boolean" },
+        "given": { "type": "string", "minLength": 1 },
+        "family": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1 },
+        "orcid": { "$ref": "#/$defs/orcid" },
+        "affiliation": { "type": "string", "minLength": 1 },
+        "role": { "type": "string", "minLength": 1 },
+        "zenodo-type": {
+          "enum": ["ContactPerson", "DataCollector", "DataCurator", "DataManager", "Distributor", "Editor", "HostingInstitution", "Producer", "ProjectLeader", "ProjectManager", "ProjectMember", "RegistrationAgency", "RegistrationAuthority", "RelatedPerson", "Researcher", "ResearchGroup", "RightsHolder", "Sponsor", "Supervisor", "WorkPackageLeader", "Other"],
+          "default": "Other"
+        },
+        "disclosure": { "type": "string", "minLength": 1 }
+      },
+      "if": { "properties": { "ai": { "const": true } }, "required": ["ai"] },
+      "then": { "required": ["name", "disclosure"], "not": { "anyOf": [{ "required": ["orcid"] }, { "required": ["given"] }, { "required": ["family"] }] } },
+      "else": { "anyOf": [{ "required": ["given", "family"] }, { "required": ["name"] }] }
+    }
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "kind": "lenticule.research-publication.v1",
+  "title": "White Repopulation: Reproduction without Preservation",
+  "subtitle": "The future white, captive births, and transatlantic reproduction of settler rule",
+  "version": "0.1.0",
+  "status": "release-candidate",
+  "released_at": null,
+  "doi": null,
+  "canonical_public_url": null,
+  "publicly_accessible": false,
+  "peer_reviewed": false,
+  "publishing_organization": "Lenticule Science",
+  "discipline": "historical sociology",
+  "authors": [
+    {
+      "name": "Morgan Sennhauser",
+      "role": "accountable-human-author"
+    },
+    {
+      "name": "Codex 6.1",
+      "role": "disclosed-AI-research-collaborator-and-requested-coauthor"
+    }
+  ],
+  "ai_disclosure": "Codex 6.1 is an AI system credited as research collaborator and requested coauthor; it cannot accept the human author's scholarly, legal or ethical accountability.",
+  "acknowledgements": [
+    {
+      "name": "Anonymous contributor",
+      "role": "research direction"
+    }
+  ],
+  "source_manuscripts": [
+    "https://github.com/lenticule-science/science-services-section/blob/main/services/social-science-services-section/services/sociology-science-services-section/content/text/documents/articles/notes/2026/10/17/2026-10-17-manuscript-selective-futurity-and-settler-continuity.md",
+    "https://github.com/lenticule-science/science-services-section/blob/main/services/social-science-services-section/services/sociology-science-services-section/content/text/documents/articles/notes/2026/10/17/2026-10-17-manuscript-captive-births-and-settler-reproduction.md",
+    "https://github.com/lenticule-science/science-services-section/blob/main/services/social-science-services-section/services/sociology-science-services-section/content/text/documents/articles/notes/2026/10/17/2026-10-17-manuscript-reproductive-futures-as-property.md",
+    "https://github.com/lenticule-science/science-services-section/blob/main/services/social-science-services-section/services/sociology-science-services-section/content/text/documents/articles/notes/2026/10/17/2026-10-17-manuscript-transatlantic-population-circuits.md"
+  ],
+  "source_revisions": [
+    {
+      "title": "The Future White",
+      "sha": "b59d450d29689fdf69b6dbf1739be94439a78ffc"
+    },
+    {
+      "title": "Birth into Captivity",
+      "sha": "deecb8ada1a496bd5fad25782ee64a3ac25765b1"
+    },
+    {
+      "title": "Whose Future Increase?",
+      "sha": "769c055269cef7f62d792198dc8c79db7bbfc67f"
+    },
+    {
+      "title": "Transatlantic Population Circuits",
+      "sha": "5cae13e515a0a67821bca18b2be6b0deae4f5685"
+    }
+  ],
+  "historical_birth_series_sha": "31d7dce704c628fb7c67a9f3f75b58f6588970e8",
+  "evidence": {
+    "historical births": "retrospective modeled estimates; 1790s denominator assumed, no measured prevalence of coerced conception",
+    "historical migration": "all-population national rates; not white-specific or local lineage survival",
+    "legal cases": "purposive judicial comparison; title/status variation not population frequency",
+    "self-consuming futurity": "historical hypothesis not demonstrated causal demographic law"
+  },
+  "news_desk_hint": "opinion-analysis",
+  "news_potential": {
+    "topic": "New Lenticule Science research on white futurity, births into captivity and settler social reproduction",
+    "reporting_task": "Report actual new public release, numerical methods, limits, countercases, independent scholarship; no article until evidence and publication authority."
+  },
+  "files": {
+    "paper/white-repopulation-v0.1.0.pdf": {
+      "sha256": "1070ec6ff00d9ef4b6bd9d5e023c3116a7bdeedd66e55b074702142265caa929",
+      "bytes": 6086580
+    },
+    "figures/white-repopulation-overview.png": {
+      "sha256": "13489a6ce01fe5b4c29af9f75eacce39594853d1cb3a20b22a83ad05bcd5d9d3",
+      "bytes": 11337138
+    },
+    "paper/reading-transcription.md": {
+      "sha256": "6149d6769123230f841c628607334b0e03f8556be7f2458a739fdc698931a882",
+      "bytes": 224867
+    },
+    "paper/bibliography-transcription.md": {
+      "sha256": "aeedc5d89dc57f52b32bd0d46feac81bd0e79adeb363b7ae3908464f4ac4e880",
+      "bytes": 46164
+    },
+    "data/births-1790-1859.csv": {
+      "sha256": "9a0c4d25118ec94dc1bc38af73e4901854608e88355d8da2df35794eae63454c",
+      "bytes": 398
+    },
+    "data/us-migration-growth-1790-1860.csv": {
+      "sha256": "ca87a8b4922c7c2d3c3567b4af0864332067bcd629040a1e9355a5df4115c043",
+      "bytes": 372
+    }
+  },
+  "artifact_custody": "Prepared portable research release bundle exists; PDF and infographic are not yet uploaded to a public GitHub release.",
+  "paper_id": "white-repopulation",
+  "prepared_at": "2026-10-17",
+  "license_scope": "Original authored editorial synthesis only; historical texts, documents, images and third-party sources retain their own rights."
+}
