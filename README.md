@@ -10,7 +10,7 @@
 One `paper.yaml` is the single source of truth for a research release. This
 service projects it, deterministically and byte-for-byte reproducibly, into
 
-- `CITATION.cff` (Citation File Format 1.2.0, valid against the official schema),
+- `CITATION.cff` (Citation File Format 1.2.0, valid against the official schema; each `related-identifiers` entry is also an `identifiers` entry: scheme `swh`, `doi` and `url` keep their CFF type, every other scheme is `other`, the relation is the description, in the paper's order),
 - `.zenodo.json` (Zenodo legacy deposit metadata),
 - `codemeta.json` (codemeta 3.0 JSON-LD), and
 - a schema.org `ScholarlyArticle` JSON-LD document,
@@ -178,3 +178,5 @@ the package's own `declareOffer` over each offer.
 - CARE statements are restated, never verified; they are neither a licence nor evidence of community authority.
 - The consistency check compares arrays by position, so one inserted list item reports the following items as different.
 - No file is written and no DOI is minted or fetched; `citation-count` is only echoed.
+
+Tests validate the generated CITATION.cff against the vendored official CFF schema with the house `@red-cup-engineering/json-schema-services-section/validation` (no ajv). YAML is read and written by `@red-cup-engineering/yaml-frontmatter-codec-service` (`decodeYaml`, `encodeYaml`).

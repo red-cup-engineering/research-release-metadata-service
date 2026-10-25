@@ -130,3 +130,25 @@ test("every projection refuses an inadmissible paper and a malformed request", (
     assert.throws(() => project(null), TypeError);
   }
 });
+
+test("CITATION.cff carries related identifiers as CFF identifiers: swh, doi and url keep their type, the rest are other, in order, the relation as description", () => {
+  const paper = minimalPaper();
+  paper["related-identifiers"] = [
+    { identifier: "swh:1:rel:38fe7c944eb716249e88dbf8511acdd1ade7e809", relation: "isIdenticalTo", scheme: "swh" },
+    { identifier: "https://doi.org/10.5281/zenodo.1234567", relation: "isSupplementTo", scheme: "doi" },
+    { identifier: "10.5281/zenodo.7654321", relation: "isNewVersionOf", scheme: "doi" },
+    { identifier: "https://example.org/data", relation: "isDerivedFrom", scheme: "url" },
+    { identifier: "2601.00001", relation: "cites", scheme: "arxiv" },
+  ];
+  const { text, value } = projectCitationCff({ paper });
+  assert.deepEqual(value.identifiers, [
+    { type: "swh", value: "swh:1:rel:38fe7c944eb716249e88dbf8511acdd1ade7e809", description: "isIdenticalTo" },
+    { type: "doi", value: "10.5281/zenodo.1234567", description: "isSupplementTo" },
+    { type: "doi", value: "10.5281/zenodo.7654321", description: "isNewVersionOf" },
+    { type: "url", value: "https://example.org/data", description: "isDerivedFrom" },
+    { type: "other", value: "2601.00001", description: "cites" },
+  ]);
+  assert.deepEqual(assertCffValid(text).identifiers, value.identifiers);
+  assert.ok(text.indexOf("identifiers:") < text.indexOf("preferred-citation:"));
+  assert.equal(projectCitationCff({ paper: minimalPaper() }).value.identifiers, undefined);
+});

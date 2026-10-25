@@ -1,9 +1,7 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import Ajv from "ajv";
-import Ajv2020 from "ajv/dist/2020.js";
-import addFormats from "ajv-formats";
+import { validateJsonSchema, validateJsonSchemaDocument } from "@red-cup-engineering/json-schema-services-section/validation";
 
 export const here = dirname(fileURLToPath(import.meta.url));
 export const root = join(here, "..");
@@ -12,19 +10,26 @@ export const json = (path) => JSON.parse(readFileSync(join(root, path), "utf8"))
 
 export const whitePaperYaml = fixture("white-repopulation.paper.yaml");
 
-/** An official-schema validator for CITATION.cff (draft-07). */
-export function cffValidator() {
-  const ajv = new Ajv({ allErrors: true, strict: false });
-  addFormats(ajv);
-  return ajv.compile(JSON.parse(fixture("cff-1.2.0.schema.json")));
+/** A validator over a schema, from the house json-schema-services-section: `validate(value)` is a boolean, `validate.errors` the issues. */
+function validatorOf(published) {
+  // The official CFF schema names its dialect `http://json-schema.org/draft-07/schema` (no empty fragment); the house validator names it with the `#`.
+  const schema = published.$schema === "http://json-schema.org/draft-07/schema" ? { ...published, $schema: "http://json-schema.org/draft-07/schema#" } : published;
+  const document = validateJsonSchemaDocument(schema);
+  if (document.issues?.length > 0) throw new TypeError(`not a valid schema: ${JSON.stringify(document.issues)}`);
+  const validate = (value) => {
+    const { issues } = validateJsonSchema(value, schema);
+    validate.errors = issues.length === 0 ? null : issues;
+    return issues.length === 0;
+  };
+  validate.errors = null;
+  return validate;
 }
 
-/** A 2020-12 validator, used to prove paper.schema.json is itself a valid 2020-12 schema. */
-export function schema2020(schema) {
-  const ajv = new Ajv2020({ allErrors: true, strict: false });
-  addFormats(ajv);
-  return ajv.compile(schema);
-}
+/** An official-schema validator for CITATION.cff (draft-07). */
+export const cffValidator = () => validatorOf(JSON.parse(fixture("cff-1.2.0.schema.json")));
+
+/** A validator for a 2020-12 schema; building it proves the schema is itself a valid document. */
+export const schema2020 = (schema) => validatorOf(schema);
 
 /** A small admissible paper, written fresh per call so tests may mutate it. */
 export function minimalPaper(overrides = {}) {

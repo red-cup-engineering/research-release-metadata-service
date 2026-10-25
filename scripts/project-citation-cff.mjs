@@ -5,13 +5,15 @@ import { paperRequestSchema, projectionOutputSchema, runCommand } from "./face.m
 
 export const operationDefinition = {
   name: "projectCitationCff",
-  description: "Projects a paper.yaml into a CITATION.cff 1.2.0 file: humans first with the accountable author leading, an AI system credited as a name: entity, the disclosure carried in message, byte-reproducible.",
+  description: "Projects a paper.yaml into a CITATION.cff 1.2.0 file: humans first with the accountable author leading, an AI system credited as a name: entity, the disclosure carried in message, related identifiers carried as identifiers (swh, doi, url or other, with the relation as description), byte-reproducible.",
   inputSchema: paperRequestSchema(),
   outputSchema: projectionOutputSchema,
 };
 export const operation = operationDefinition;
 
 const PREFERRED_TYPE = Object.freeze({ preprint: "report", article: "article", report: "report", book: "book", thesis: "thesis", conferencepaper: "conference-paper", other: "generic" });
+/** paper.yaml related-identifier schemes the CFF 1.2.0 `identifiers` vocabulary names; every other scheme is `other`. */
+const CFF_IDENTIFIER_TYPE = Object.freeze({ doi: "doi", url: "url", swh: "swh" });
 const DEFAULT_MESSAGE = "If you use this work, please cite it using the metadata from this file.";
 
 function cffPerson(entry) {
@@ -23,6 +25,13 @@ function cffPerson(entry) {
     affiliation: entry.affiliation,
     email: entry.email,
   });
+}
+
+/** A paper.yaml related identifier as a CFF `identifiers` entry: swh, doi and url keep their type, anything else is `other`. */
+function cffIdentifier(entry) {
+  const type = CFF_IDENTIFIER_TYPE[entry.scheme] ?? "other";
+  const value = type === "doi" ? entry.identifier.replace(/^https?:\/\/(?:dx\.)?doi\.org\//u, "") : entry.identifier;
+  return { type, value, description: entry.relation };
 }
 
 /** The CFF record, as a JSON value in the file's key order. */
@@ -55,6 +64,7 @@ export function cffRecord(paper) {
     license: licenses.length === 1 ? licenses[0] : licenses,
     url: paper.url,
     "repository-code": paper["repository-code"],
+    identifiers: (paper["related-identifiers"] ?? []).map(cffIdentifier),
     "preferred-citation": compact({
       type: PREFERRED_TYPE[paper["publication-type"] ?? "preprint"],
       authors,

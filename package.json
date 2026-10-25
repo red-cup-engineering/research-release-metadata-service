@@ -40,10 +40,6 @@
     "@red-cup-engineering/research-document-metadata-admission-service": "0.1.0",
     "@red-cup-engineering/yaml-frontmatter-codec-service": "0.1.8"
   },
-  "devDependencies": {
-    "ajv": "8.17.1",
-    "ajv-formats": "3.0.1"
-  },
   "scripts": {
     "check": "for file in scripts/*.mjs test/*.mjs; do node --check \"$file\" || exit; done",
     "test": "node --test test/*.test.mjs",
