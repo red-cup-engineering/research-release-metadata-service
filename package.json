@@ -1,6 +1,6 @@
 {
   "name": "@red-cup-engineering/research-release-metadata-service",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "One paper.yaml in, every research-release metadata file out: CITATION.cff 1.2.0, Zenodo .zenodo.json, codemeta 3.0 JSON-LD and schema.org ScholarlyArticle JSON-LD, byte-reproducibly, plus a drift check across the existing files. Models AI-collaborator disclosure faithfully: an AI system may be credited but never holds accountability.",
   "repository": {
     "type": "git",
@@ -39,7 +39,7 @@
     "@red-cup-engineering/json-schema-services-section": "0.5.1",
     "@red-cup-engineering/research-document-metadata-admission-service": "0.1.0",
     "@red-cup-engineering/yaml-frontmatter-codec-service": "0.1.8",
-    "@red-cup-engineering/json-ld-services-section": "github:red-cup-engineering/json-ld-services-section#79328d29cbd2d9944f7159f7b0e133c65c78b60f"
+    "@red-cup-engineering/json-ld-services-section": "0.1.0"
   },
   "scripts": {
     "check": "for file in scripts/*.mjs test/*.mjs; do node --check \"$file\" || exit; done",
