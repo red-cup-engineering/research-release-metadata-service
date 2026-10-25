@@ -38,7 +38,8 @@
     "@red-cup-engineering/javascript-node-services-section": "0.4.1",
     "@red-cup-engineering/json-schema-services-section": "0.5.1",
     "@red-cup-engineering/research-document-metadata-admission-service": "0.1.0",
-    "@red-cup-engineering/yaml-frontmatter-codec-service": "0.1.8"
+    "@red-cup-engineering/yaml-frontmatter-codec-service": "0.1.8",
+    "@red-cup-engineering/json-ld-services-section": "github:red-cup-engineering/json-ld-services-section#79328d29cbd2d9944f7159f7b0e133c65c78b60f"
   },
   "scripts": {
     "check": "for file in scripts/*.mjs test/*.mjs; do node --check \"$file\" || exit; done",

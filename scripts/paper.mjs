@@ -1,6 +1,7 @@
 // The paper.yaml record: its schema, its admission, and the small shared algebra
 // every projection reads it through. Pure and edge-safe: no filesystem, no
 // clock, no network, no Node built-ins.
+import { jsonLdText, pruneEmpty } from "@red-cup-engineering/json-ld-services-section/json-ld";
 import { decodeYaml } from "@red-cup-engineering/yaml-frontmatter-codec-service";
 import { validateJsonSchema } from "@red-cup-engineering/json-schema-services-section/validation";
 import { admitResearchDocumentMetadata } from "@red-cup-engineering/research-document-metadata-admission-service";
@@ -158,12 +159,8 @@ export function limitationTexts(paper) {
   return [...(paper.limitations ?? []), ...(paper.license.scope === undefined ? [] : [`Licence scope: ${paper.license.scope}`])];
 }
 
-/** Serialize a JSON value with fixed two-space indent and a trailing newline: the one JSON layout. */
-export function jsonText(value) {
-  return `${JSON.stringify(value, null, 2)}\n`;
-}
+/** Serialize a JSON value with fixed two-space indent and a trailing newline: the one JSON layout (json-ld-services-section). */
+export const jsonText = jsonLdText;
 
-/** Drop undefined members from an object, preserving insertion order. */
-export function compact(record) {
-  return Object.fromEntries(Object.entries(record).filter(([, value]) => value !== undefined && !(Array.isArray(value) && value.length === 0)));
-}
+/** Drop undefined members and empty arrays from an object, preserving insertion order (json-ld-services-section). */
+export const compact = pruneEmpty;
