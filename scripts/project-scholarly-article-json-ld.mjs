@@ -9,6 +9,7 @@ export const operationDefinition = {
   inputSchema: paperRequestSchema(),
   outputSchema: projectionOutputSchema,
 };
+export const operation = operationDefinition;
 
 const CREATIVE_WORK_STATUS = Object.freeze({ draft: "Draft", "release-candidate": "Draft", released: "Published", withdrawn: "Withdrawn" });
 const ENCODING = Object.freeze({ pdf: "application/pdf", png: "image/png", md: "text/markdown", csv: "text/csv", json: "application/json", txt: "text/plain", html: "text/html", svg: "image/svg+xml", jpg: "image/jpeg", jpeg: "image/jpeg" });

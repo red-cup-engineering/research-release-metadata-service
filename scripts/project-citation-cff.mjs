@@ -9,6 +9,7 @@ export const operationDefinition = {
   inputSchema: paperRequestSchema(),
   outputSchema: projectionOutputSchema,
 };
+export const operation = operationDefinition;
 
 const PREFERRED_TYPE = Object.freeze({ preprint: "report", article: "article", report: "report", book: "book", thesis: "thesis", conferencepaper: "conference-paper", other: "generic" });
 const DEFAULT_MESSAGE = "If you use this work, please cite it using the metadata from this file.";

@@ -8,6 +8,7 @@ export const operationDefinition = {
   inputSchema: paperRequestSchema(),
   outputSchema: projectionOutputSchema,
 };
+export const operation = operationDefinition;
 
 const PUBLICATION_TYPE = Object.freeze({ preprint: "preprint", article: "article", report: "report", book: "book", thesis: "thesis", conferencepaper: "conferencepaper", other: "other" });
 const LANGUAGE_3 = Object.freeze({

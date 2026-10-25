@@ -9,6 +9,7 @@ export const operationDefinition = {
   inputSchema: paperRequestSchema(),
   outputSchema: projectionOutputSchema,
 };
+export const operation = operationDefinition;
 
 const DEVELOPMENT_STATUS = Object.freeze({
   draft: "https://www.repostatus.org/#wip",

@@ -28,6 +28,7 @@ export const operationDefinition = {
     },
   },
 };
+export const operation = operationDefinition;
 
 const PROJECTIONS = Object.freeze({
   "CITATION.cff": { project: projectCitationCff, parse: (text) => decodeYaml(text) },
