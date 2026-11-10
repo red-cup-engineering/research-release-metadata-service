@@ -164,9 +164,9 @@ for the House markets (`x402-bazaar`, `402index`, `house-capability-market`,
 `engineering` enterprise. Prices: the four projections $0.005 each,
 `check-release-metadata-consistency` $0.01. `test/fixtures/offer.schema.json`
 is a vendored copy of the x402 package's `schemas/offer.schema.json` (source:
-red-cup-engineering/x402-computer-networks-engineering-services-section, last changed at commit
+red-cup-engineering/x402-engineering-services-section, last changed at commit
 `e9067ecc61616e86800ce40a190d3875fcc1b0b7`, checkout HEAD `34703ed`). Set
-`X402_OFFER_MODULE=/path/to/x402-computer-networks-engineering-services-section/src/offer.mjs` to also run
+`X402_OFFER_MODULE=/path/to/x402-engineering-services-section/src/offer.mjs` to also run
 the package's own `declareOffer` over each offer.
 
 ## Limitations
