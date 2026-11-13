@@ -10,7 +10,7 @@ export const json = (path) => JSON.parse(readFileSync(join(root, path), "utf8"))
 
 export const whitePaperYaml = fixture("white-repopulation.paper.yaml");
 
-/** A validator over a schema, from the house json-schema-services-section: `validate(value)` is a boolean, `validate.errors` the issues. */
+/** A validator over a schema, from the house json-schema-engineering-services-section: `validate(value)` is a boolean, `validate.errors` the issues. */
 function validatorOf(published) {
   // The official CFF schema names its dialect `http://json-schema.org/draft-07/schema` (no empty fragment); the house validator names it with the `#`.
   const schema = published.$schema === "http://json-schema.org/draft-07/schema" ? { ...published, $schema: "http://json-schema.org/draft-07/schema#" } : published;
