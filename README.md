@@ -179,7 +179,7 @@ the package's own `declareOffer` over each offer.
 - The consistency check compares arrays by position, so one inserted list item reports the following items as different.
 - No file is written and no DOI is minted or fetched; `citation-count` is only echoed.
 
-Tests validate the generated CITATION.cff against the vendored official CFF schema with the house `@red-cup-engineering/json-schema-services-section/validation` (no ajv). YAML is read and written by `@red-cup-engineering/yaml-frontmatter-codec-service` (`decodeYaml`, `encodeYaml`).
+Tests validate the generated CITATION.cff against the vendored official CFF schema with the house `@red-cup-engineering/json-schema-engineering-services-section/validation` (no ajv). YAML is read and written by `@red-cup-engineering/yaml-frontmatter-codec-service` (`decodeYaml`, `encodeYaml`).
 ## Sold as a Hoare service contract
 
 `data/hoare-service-contracts/` holds this service's contract: the precondition, postcondition, refusals,

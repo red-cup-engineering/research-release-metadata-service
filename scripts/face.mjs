@@ -23,7 +23,7 @@ export const projectionOutputSchema = {
 
 /** Run one operation as an NDJSON command: one JSON value per input line, one per output line. */
 export async function runCommand(operationDefinition, operation) {
-  const { runJavascriptNodeOperation } = await import("@red-cup-engineering/javascript-node-services-section/operation");
+  const { runJavascriptNodeOperation } = await import("@red-cup-engineering/javascript-node-engineering-services-section/operation");
   process.exitCode = (await runJavascriptNodeOperation(
     { ...operationDefinition, operation },
     { arguments: process.argv.slice(2), standardInput: process.stdin, standardOutput: process.stdout },

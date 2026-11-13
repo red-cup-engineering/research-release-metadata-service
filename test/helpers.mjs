@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { validateJsonSchema, validateJsonSchemaDocument } from "@red-cup-engineering/json-schema-services-section/validation";
+import { validateJsonSchema, validateJsonSchemaDocument } from "@red-cup-engineering/json-schema-engineering-services-section/validation";
 
 export const here = dirname(fileURLToPath(import.meta.url));
 export const root = join(here, "..");

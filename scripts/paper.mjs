@@ -3,7 +3,7 @@
 // clock, no network, no Node built-ins.
 import { jsonLdText, pruneEmpty } from "@red-cup-engineering/json-ld-services-section/json-ld";
 import { decodeYaml } from "@red-cup-engineering/yaml-frontmatter-codec-service";
-import { validateJsonSchema } from "@red-cup-engineering/json-schema-services-section/validation";
+import { validateJsonSchema } from "@red-cup-engineering/json-schema-engineering-services-section/validation";
 import { admitResearchDocumentMetadata } from "@red-cup-engineering/research-document-metadata-admission-service";
 import PAPER_SCHEMA from "../schemas/paper.schema.json" with { type: "json" };
 
