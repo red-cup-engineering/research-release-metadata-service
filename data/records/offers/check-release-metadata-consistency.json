@@ -1,0 +1,147 @@
+{
+  "name": "Check release metadata consistency",
+  "gateway": "research-release-metadata",
+  "gatewayPackageName": "@red-cup-engineering/research-release-metadata-service",
+  "section": "lib/emsenn/services/561-group/services/engineering-services-section/services/computer-engineering-services-section/services/computer-data-engineering-services-section/services/computer-content-engineering-services-section/services/computer-documents-engineering-services-section/services/research-release-metadata-service",
+  "operation": "check-release-metadata-consistency",
+  "origin": "https://market.561.group",
+  "route": "/v1/check-release-metadata-consistency",
+  "method": "POST",
+  "price": "$0.01",
+  "category": "data",
+  "output": {
+    "schema": {
+      "type": "object",
+      "required": [
+        "consistent",
+        "files",
+        "drift"
+      ],
+      "properties": {
+        "consistent": {
+          "type": "boolean"
+        },
+        "files": {
+          "type": "object"
+        },
+        "drift": {
+          "type": "array"
+        }
+      }
+    },
+    "example": {
+      "consistent": false,
+      "files": {
+        ".zenodo.json": {
+          "status": "drift",
+          "byteIdentical": false,
+          "drift": 1
+        },
+        "CITATION.cff": {
+          "status": "consistent",
+          "byteIdentical": true,
+          "drift": 0
+        }
+      },
+      "drift": [
+        {
+          "file": ".zenodo.json",
+          "rule": "different",
+          "path": "/version",
+          "expected": "1.0.0",
+          "actual": "0.9.0"
+        }
+      ]
+    }
+  },
+  "framings": [
+    {
+      "key": "default",
+      "title": "Check release metadata consistency",
+      "description": "Check existing CITATION.cff, .zenodo.json, codemeta.json and scholarly-article.jsonld texts against what a paper.yaml projects. Reports every missing, unexpected and different value, absent or unparseable file, and any AI system credited as leading author or creator. Deterministic.",
+      "tags": [
+        "research",
+        "citation",
+        "metadata",
+        "open-science",
+        "consistency"
+      ],
+      "serviceName": "check-release-metadata"
+    }
+  ],
+  "ledgerAccount": "Income:Sales:X402:Research-release-metadata",
+  "markets": [
+    "x402-bazaar",
+    "402index",
+    "house-capability-market",
+    "house-seller-catalog"
+  ],
+  "seller": {
+    "enterprise": "engineering",
+    "entity": "561-group-llc",
+    "record": {
+      "path": "lib/emsenn/services/561-group/services/engineering-services-section/lib/agency/enterprises/engineering.json",
+      "sha256": "6af4ed9d1e4612b0383267e7ffe0ad028c52164ee3c5136110d434384a29c39f"
+    }
+  },
+  "compute": {
+    "package": "@red-cup-engineering/research-release-metadata-service",
+    "subpath": "./check-release-metadata-consistency",
+    "export": "checkReleaseMetadataConsistency",
+    "args": [
+      "body"
+    ]
+  },
+  "runtime": "edge",
+  "saleStatus": "held",
+  "bodyExample": {
+    "paper": {
+      "id": "example-paper",
+      "title": "An Example Paper",
+      "version": "1.0.0",
+      "status": "released",
+      "date-released": "2026-01-15",
+      "abstract": "A short abstract describing the example paper.",
+      "keywords": [
+        "example",
+        "metadata"
+      ],
+      "license": {
+        "text": "CC-BY-4.0"
+      },
+      "authors": [
+        {
+          "given": "Ada",
+          "family": "Lovelace",
+          "affiliation": "Analytical Engine Society",
+          "role": "accountable-human-author",
+          "ai": false
+        }
+      ]
+    },
+    "files": {
+      "CITATION.cff": "cff-version: 1.2.0\nmessage: If you use this work, please cite it using the metadata from this file.\ntitle: An Example Paper\nversion: 1.0.0\ndate-released: \"2026-01-15\"\nabstract: A short abstract describing the example paper.\nauthors:\n  - family-names: Lovelace\n    given-names: Ada\n    affiliation: Analytical Engine Society\nkeywords:\n  - example\n  - metadata\nlicense: CC-BY-4.0\npreferred-citation:\n  type: report\n  authors:\n    - family-names: Lovelace\n      given-names: Ada\n      affiliation: Analytical Engine Society\n  title: An Example Paper\n  year: 2026\n  version: 1.0.0\n  notes: Not peer reviewed. No DOI assigned.\n",
+      ".zenodo.json": "{\n  \"upload_type\": \"publication\",\n  \"publication_type\": \"preprint\",\n  \"title\": \"An Example Paper\",\n  \"publication_date\": \"2026-01-15\",\n  \"description\": \"<p>A short abstract describing the example paper.</p>\",\n  \"creators\": [\n    {\n      \"name\": \"Lovelace, Ada\",\n      \"affiliation\": \"Analytical Engine Society\"\n    }\n  ],\n  \"keywords\": [\n    \"example\",\n    \"metadata\"\n  ],\n  \"license\": \"cc-by-4.0\",\n  \"access_right\": \"open\",\n  \"version\": \"0.9.0\",\n  \"notes\": \"<p>Not peer reviewed.</p>\"\n}\n"
+    }
+  },
+  "bodySchema": {
+    "type": "object",
+    "properties": {
+      "paper": {
+        "type": "object",
+        "description": "paper.yaml decoded as a JSON object (schemas/paper.schema.json)."
+      },
+      "paperYaml": {
+        "type": "string",
+        "description": "paper.yaml source text. Send exactly one of paper or paperYaml."
+      },
+      "files": {
+        "type": "object",
+        "description": "File name (CITATION.cff, .zenodo.json, codemeta.json, scholarly-article.jsonld) to its text, or null if absent."
+      }
+    },
+    "required": [
+      "files"
+    ]
+  }
+}
