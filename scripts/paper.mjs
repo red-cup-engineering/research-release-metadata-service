@@ -4,7 +4,7 @@
 import { jsonLdText, pruneEmpty } from "@red-cup-engineering/json-ld-services-section/json-ld";
 import { decodeYaml } from "@red-cup-engineering/yaml-engine";
 import { validateJsonSchema } from "@red-cup-engineering/json-schema-engineering-services-section/validation";
-import { admitResearchDocumentMetadata } from "@red-cup-engineering/research-document-metadata-admission-service";
+import { validateResearchDocumentMetadata } from "@red-cup-engineering/research-document-metadata-admission-service";
 import PAPER_SCHEMA from "../schemas/paper.schema.json" with { type: "json" };
 
 export { PAPER_SCHEMA };
@@ -13,7 +13,7 @@ const ACCOUNTABLE = /accountab/iu;
 const isObject = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
 
 /** paper.yaml status words, mapped to the status vocabulary research-document-metadata-admission-service admits. */
-const ADMISSION_STATUS = Object.freeze({ draft: "draft", "release-candidate": "working", released: "canonical", withdrawn: "deprecated" });
+const VALIDATION_STATUS = Object.freeze({ draft: "draft", "release-candidate": "working", released: "canonical", withdrawn: "deprecated" });
 
 /** The label a generated file appends to an AI system's name, so no file can read it as a person. */
 export const AI_ENTITY_SUFFIX = "(disclosed AI research collaborator)";
@@ -42,7 +42,7 @@ export function resolvePaper(body, extra = []) {
   for (const key of Object.keys(body)) if (!allowed.has(key)) throw new TypeError(`request does not admit ${key}`);
   const given = ["paper", "paperYaml"].filter((key) => body[key] !== undefined);
   if (given.length !== 1) throw new TypeError("request requires exactly one of paper or paperYaml");
-  return admitPaper(given[0] === "paper" ? body.paper : parsePaperYaml(body.paperYaml));
+  return validatePaper(given[0] === "paper" ? body.paper : parsePaperYaml(body.paperYaml));
 }
 
 function personLabel(entry) {
@@ -62,7 +62,7 @@ function personLabel(entry) {
  * @throws {TypeError} when the record is malformed or breaks the schema.
  * @throws {RangeError} when it breaks the accountability law.
  */
-export function admitPaper(paper) {
+export function validatePaper(paper) {
   if (!isObject(paper)) throw new TypeError("paper must be an object");
   const result = validateJsonSchema(paper, PAPER_SCHEMA);
   if (!result.valid) {
@@ -87,17 +87,17 @@ export function admitPaper(paper) {
     if (seen.has(label)) throw new RangeError(`author ${personLabel(author)} is listed twice`);
     seen.add(label);
   }
-  const admission = admitResearchDocumentMetadata({
+  const validation = validateResearchDocumentMetadata({
     id: paper.id,
     title: paper.title,
-    status: ADMISSION_STATUS[paper.status],
+    status: VALIDATION_STATUS[paper.status],
     authors: paper.authors.map(personLabel),
     keywords: paper.keywords,
     ...(paper.doi === undefined ? {} : { doi: paper.doi }),
     license: paper.license.text,
   });
-  if (!admission.ok) {
-    throw new TypeError(`paper.yaml is not admissible as research-document metadata: ${admission.refusal.issues.map((issue) => `${issue.path} ${issue.message}`).join("; ")}`);
+  if (!validation.ok) {
+    throw new TypeError(`paper.yaml is not admissible as research-document metadata: ${validation.refusal.issues.map((issue) => `${issue.path} ${issue.message}`).join("; ")}`);
   }
   return deepFreeze(structuredClone(paper));
 }
