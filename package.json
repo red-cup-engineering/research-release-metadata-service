@@ -39,7 +39,8 @@
     "@red-cup-engineering/research-document-metadata-admission-service": "^0.1.1",
     "@red-cup-engineering/yaml-engine": "^0.1.0",
     "@red-cup-engineering/json-ld-services-section": "^0.1.1",
-    "@red-cup-engineering/node-js-function-engineering-services-section": "^0.5.4"
+    "@red-cup-engineering/node-js-function-engineering-services-section": "^0.5.4",
+    "@red-cup-engineering/signcell": "^0.18.0 || 0.18.1-dev.0"
   },
   "scripts": {
     "pack:dry-run": "npm pack --dry-run --ignore-scripts"

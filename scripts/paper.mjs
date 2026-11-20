@@ -1,3 +1,4 @@
+import { isRecord } from "@red-cup-engineering/signcell/values";
 // The paper.yaml record: its schema, its admission, and the small shared algebra
 // every projection reads it through. Pure and edge-safe: no filesystem, no
 // clock, no network, no Node built-ins.
@@ -10,7 +11,7 @@ import PAPER_SCHEMA from "../schemas/paper.schema.json" with { type: "json" };
 export { PAPER_SCHEMA };
 
 const ACCOUNTABLE = /accountab/iu;
-const isObject = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
+
 
 /** paper.yaml status words, mapped to the status vocabulary research-document-metadata-admission-service admits. */
 const ADMISSION_STATUS = Object.freeze({ draft: "draft", "release-candidate": "working", released: "canonical", withdrawn: "deprecated" });
@@ -37,7 +38,7 @@ export function parsePaperYaml(text) {
  * @throws {TypeError} on a malformed request or a paper that does not admit.
  */
 export function resolvePaper(body, extra = []) {
-  if (!isObject(body)) throw new TypeError("request must be an object with paper or paperYaml");
+  if (!isRecord(body)) throw new TypeError("request must be an object with paper or paperYaml");
   const allowed = new Set(["paper", "paperYaml", ...extra]);
   for (const key of Object.keys(body)) if (!allowed.has(key)) throw new TypeError(`request does not admit ${key}`);
   const given = ["paper", "paperYaml"].filter((key) => body[key] !== undefined);
@@ -63,7 +64,7 @@ function personLabel(entry) {
  * @throws {RangeError} when it breaks the accountability law.
  */
 export function admitPaper(paper) {
-  if (!isObject(paper)) throw new TypeError("paper must be an object");
+  if (!isRecord(paper)) throw new TypeError("paper must be an object");
   const result = validateJsonSchema(paper, PAPER_SCHEMA);
   if (!result.valid) {
     throw new TypeError(`paper.yaml is not admissible: ${result.issues.map((issue) => `${issue.path || "/"} ${issue.keyword}: ${issue.message}`).join("; ")}`);
@@ -78,7 +79,7 @@ export function admitPaper(paper) {
   if (accountable.length === 0) {
     throw new RangeError("at least one human author (ai: false) must hold an accountable role (a role naming accountability, e.g. accountable-human-author); an AI system cannot be the accountable author");
   }
-  if (everyone.some((entry) => entry.ai === true) && !isObject(paper["ai-disclosure"])) {
+  if (everyone.some((entry) => entry.ai === true) && !isRecord(paper["ai-disclosure"])) {
     throw new RangeError("a paper crediting an AI system requires ai-disclosure.statement");
   }
   const seen = new Set();
