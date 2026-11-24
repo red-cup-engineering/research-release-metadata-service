@@ -1,0 +1,145 @@
+{
+  "name": "Project CITATION.cff",
+  "gateway": "research-release-metadata",
+  "gatewayPackageName": "@red-cup-engineering/research-release-metadata-service",
+  "section": "lib/emsenn/services/561-group/services/engineering-services-section/services/computer-engineering-services-section/services/computer-data-engineering-services-section/services/computer-content-engineering-services-section/services/computer-documents-engineering-services-section/services/research-release-metadata-service",
+  "operation": "project-citation-cff",
+  "origin": "https://market.561.group",
+  "route": "/v1/project-citation-cff",
+  "method": "POST",
+  "price": "$0.005",
+  "category": "data",
+  "output": {
+    "schema": {
+      "type": "object",
+      "required": [
+        "text",
+        "value"
+      ],
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "value": {
+          "type": "object"
+        }
+      }
+    },
+    "example": {
+      "text": "cff-version: 1.2.0\nmessage: If you use this work, please cite it using the metadata from this file.\ntitle: An Example Paper\nversion: 1.0.0\ndate-released: \"2026-01-15\"\nabstract: A short abstract describing the example paper.\nauthors:\n  - family-names: Lovelace\n    given-names: Ada\n    affiliation: Analytical Engine Society\nkeywords:\n  - example\n  - metadata\nlicense: CC-BY-4.0\npreferred-citation:\n  type: report\n  authors:\n    - family-names: Lovelace\n      given-names: Ada\n      affiliation: Analytical Engine Society\n  title: An Example Paper\n  year: 2026\n  version: 1.0.0\n  notes: Not peer reviewed. No DOI assigned.\n",
+      "value": {
+        "cff-version": "1.2.0",
+        "message": "If you use this work, please cite it using the metadata from this file.",
+        "title": "An Example Paper",
+        "version": "1.0.0",
+        "date-released": "2026-01-15",
+        "abstract": "A short abstract describing the example paper.",
+        "authors": [
+          {
+            "family-names": "Lovelace",
+            "given-names": "Ada",
+            "affiliation": "Analytical Engine Society"
+          }
+        ],
+        "keywords": [
+          "example",
+          "metadata"
+        ],
+        "license": "CC-BY-4.0",
+        "preferred-citation": {
+          "type": "report",
+          "authors": [
+            {
+              "family-names": "Lovelace",
+              "given-names": "Ada",
+              "affiliation": "Analytical Engine Society"
+            }
+          ],
+          "title": "An Example Paper",
+          "year": 2026,
+          "version": "1.0.0",
+          "notes": "Not peer reviewed. No DOI assigned."
+        }
+      }
+    }
+  },
+  "framings": [
+    {
+      "key": "default",
+      "title": "Project CITATION.cff",
+      "description": "Project a paper.yaml into a CITATION.cff 1.2.0 file, valid against the official schema: humans first with the accountable author leading, an AI collaborator credited as a name entity with its disclosure, deterministic bytes. Returns the file text and its JSON value.",
+      "tags": [
+        "research",
+        "citation",
+        "metadata",
+        "open-science",
+        "cff"
+      ],
+      "serviceName": "project-citation-cff"
+    }
+  ],
+  "ledgerAccount": "Income:Sales:X402:Research-release-metadata",
+  "markets": [
+    "x402-bazaar",
+    "402index",
+    "house-capability-market",
+    "house-seller-catalog"
+  ],
+  "seller": {
+    "enterprise": "engineering",
+    "entity": "561-group-llc",
+    "record": {
+      "path": "lib/emsenn/services/561-group/services/engineering-services-section/lib/agency/enterprises/engineering.json",
+      "sha256": "6af4ed9d1e4612b0383267e7ffe0ad028c52164ee3c5136110d434384a29c39f"
+    }
+  },
+  "compute": {
+    "package": "@red-cup-engineering/research-release-metadata-service",
+    "subpath": "./project-citation-cff",
+    "export": "projectCitationCff",
+    "args": [
+      "body"
+    ]
+  },
+  "runtime": "edge",
+  "saleStatus": "held",
+  "bodyExample": {
+    "paper": {
+      "id": "example-paper",
+      "title": "An Example Paper",
+      "version": "1.0.0",
+      "status": "released",
+      "date-released": "2026-01-15",
+      "abstract": "A short abstract describing the example paper.",
+      "keywords": [
+        "example",
+        "metadata"
+      ],
+      "license": {
+        "text": "CC-BY-4.0"
+      },
+      "authors": [
+        {
+          "given": "Ada",
+          "family": "Lovelace",
+          "affiliation": "Analytical Engine Society",
+          "role": "accountable-human-author",
+          "ai": false
+        }
+      ]
+    }
+  },
+  "bodySchema": {
+    "type": "object",
+    "properties": {
+      "paper": {
+        "type": "object",
+        "description": "paper.yaml decoded as a JSON object (schemas/paper.schema.json)."
+      },
+      "paperYaml": {
+        "type": "string",
+        "description": "paper.yaml source text. Send exactly one of paper or paperYaml."
+      }
+    }
+  }
+}
